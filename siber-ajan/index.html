@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Siber Ajan Akademisi</title>
+<style>
+:root{--bg:#070b12;--card:#0f1623;--line:#1d2a40;--tx:#d7e3f4;--mut:#7d90ab;--g:#00ff9d;--c:#22d3ee;--r:#ff4d6d;--y:#ffd166;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;background:radial-gradient(circle at 20% 0,#0d1a2b,var(--bg) 60%);color:var(--tx);font-family:'Courier New',ui-monospace,monospace;min-height:100vh}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#080d16ee;border-bottom:1px solid var(--line);padding:12px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.logo{color:var(--g);font-weight:bold;letter-spacing:2px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:14px}
+.stat b{color:var(--c)}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:0 0 24px #00ff9d0d}
+h1,h2{margin:0 0 10px;color:var(--g)}
+p{line-height:1.6;color:var(--tx)}
+.mut{color:var(--mut);font-size:14px}
+input[type=text],input[type=password]{width:100%;padding:12px;background:#0a1019;border:1px solid var(--line);color:var(--g);border-radius:8px;font:inherit;font-size:16px;outline:none}
+input:focus{border-color:var(--c)}
+button{background:transparent;border:1px solid var(--g);color:var(--g);padding:11px 20px;border-radius:8px;font:inherit;cursor:pointer;margin-top:12px;transition:.2s}
+button:hover:not(:disabled){background:var(--g);color:#000}
+button:disabled{opacity:.35;cursor:not-allowed}
+button.bad{border-color:var(--r);color:var(--r)}button.bad:hover{background:var(--r)!important}
+.steps{display:flex;gap:8px;margin-top:10px}
+.step{flex:1;height:6px;background:var(--line);border-radius:3px}
+.step.on{background:var(--c)}.step.done{background:var(--g)}
+.bar{height:12px;background:#0a1019;border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:14px 0 6px}
+.bar i{display:block;height:100%;width:0;background:var(--r);transition:.3s}
+ul.chk{list-style:none;padding:0;margin:12px 0}
+ul.chk li{padding:4px 0;color:var(--mut)}
+ul.chk li.ok{color:var(--g)}
+ul.chk li::before{content:"✗ ";color:var(--r)}ul.chk li.ok::before{content:"✓ ";color:var(--g)}
+.crack{font-size:20px;color:var(--y)}
+.mail{background:#0a1019;border:1px solid var(--line);border-radius:10px;padding:16px;margin:10px 0}
+.mail div{margin:4px 0;font-size:14px}
+.mail .body{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);line-height:1.6}
+.mail a{color:var(--c);word-break:break-all;text-decoration:underline;cursor:not-allowed}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.info{background:#00ff9d14;border:1px solid var(--g);color:var(--g);padding:12px;border-radius:8px;margin-top:12px;line-height:1.5}
+.hint{background:#ff4d6d14;border:1px solid var(--r);color:var(--r);padding:12px;border-radius:8px;margin-top:12px;line-height:1.5}
+.cipher{font-size:30px;letter-spacing:6px;color:var(--y);text-align:center;margin:16px 0;word-break:break-word}
+.ruler{overflow-x:auto;padding-bottom:6px}
+.ruler table{border-collapse:collapse;margin:0 auto;font-size:13px}
+.ruler td{border:1px solid var(--line);padding:4px 6px;text-align:center;min-width:24px}
+.ruler tr:first-child td{color:var(--c)}.ruler tr:last-child td{color:var(--g)}
+.hide{display:none}
+#cv{position:fixed;inset:0;pointer-events:none;z-index:20}
+.cert{border:3px double var(--y);padding:30px 18px;text-align:center;background:linear-gradient(160deg,#141c2c,#0a0f19);border-radius:6px}
+.cert h2{color:var(--y);font-size:26px;letter-spacing:2px}
+.cert .nm{font-size:30px;color:var(--g);margin:14px 0;border-bottom:1px solid var(--line);display:inline-block;padding:0 20px 6px}
+.seal{font-size:54px}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<header>
+  <div class="logo">🛡️ SİBER AJAN AKADEMİSİ</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <div class="stat">Puan: <b id="score">0</b></div>
+    <div class="stat">Rütbe: <b id="rank">Çaylak</b></div>
+  </div>
+</header>
+<main>
+  <div class="card">
+    <div class="mut">İLERLEME</div>
+    <div class="steps"><div class="step on" id="s1"></div><div class="step" id="s2"></div><div class="step" id="s3"></div></div>
+  </div>
+
+  <section id="start" class="card">
+    <h1>&gt; Göreve Hoş Geldin_</h1>
+    <p>Siber dünyada güvende kalmanın yollarını öğren. Üç görevi sırayla tamamla, <b>Çaylak</b>tan <b>Ajan</b> rütbesine yüksel ve resmi sertifikanı kazan!</p>
+    <input type="text" id="name" placeholder="Ajan adını yaz..." maxlength="24">
+    <button id="go">Göreve Başla ▶</button>
+  </section>
+
+  <section id="m1" class="card hide">
+    <h2>Görev 1: Kırılmaz Şifre</h2>
+    <p class="mut">Güçlü bir şifre oluştur. Yazdıkça gücü ölçülür.</p>
+    <input type="password" id="pw" placeholder="Şifreni yaz..." autocomplete="off">
+    <label class="mut"><input type="checkbox" id="show"> Şifreyi göster</label>
+    <div class="bar"><i id="pbar"></i></div>
+    <div>Güç: <b id="plabel">-</b></div>
+    <ul class="chk" id="chk">
+      <li data-r="len">En az 8 karakter</li>
+      <li data-r="up">En az bir büyük harf (A-Z)</li>
+      <li data-r="lo">En az bir küçük harf (a-z)</li>
+      <li data-r="num">En az bir rakam (0-9)</li>
+      <li data-r="sym">En az bir özel karakter (!@#$%...)</li>
+    </ul>
+    <div>Tahmini kırılma süresi: <span class="crack" id="crack">Anında</span></div>
+    <button id="done1" disabled>Görevi Tamamla (+100)</button>
+  </section>
+
+  <section id="m2" class="card hide">
+    <h2>Görev 2: E-posta Avı</h2>
+    <p class="mut">Mail <b id="mn">1</b>/3 — Bu e-posta güvenli mi, tuzak mı? Gönderici, yazım ve bağlantıyı incele.</p>
+    <div class="mail" id="mail"></div>
+    <div class="btns" id="mbtns">
+      <button id="safe">✅ Güvenli</button>
+      <button id="trap" class="bad">🎣 Tuzak</button>
+    </div>
+    <div id="mfb"></div>
+    <button id="mnext" class="hide">Sonraki ▶</button>
+  </section>
+
+  <section id="m3" class="card hide">
+    <h2>Görev 3: Sezar Şifre Çözücü</h2>
+    <p class="mut">Ajan mesajındaki her harf alfabede 1 ileri kaydırılmış. Her harfi bir geri alarak çöz!</p>
+    <div class="cipher" id="cipher"></div>
+    <div class="ruler" id="ruler"></div>
+    <p class="mut">Örnek: T → S (üstteki harf gerçek, alttaki şifreli harftir).</p>
+    <input type="text" id="ans" placeholder="Çözülmüş mesajı yaz..." autocomplete="off">
+    <button id="chk3">Çöz (+150)</button>
+    <div id="m3fb"></div>
+  </section>
+
+  <section id="end" class="card hide">
+    <div class="cert">
+      <div class="seal">🏅</div>
+      <h2>RESMİ SİBER AJAN SERTİFİKASI</h2>
+      <p class="mut">Bu belge, aşağıda adı yazılı kişinin tüm siber güvenlik görevlerini başarıyla tamamladığını onaylar.</p>
+      <div class="nm" id="cname"></div>
+      <p>Rütbe: <b style="color:var(--g)">AJAN</b> &nbsp;|&nbsp; Toplam Puan: <b style="color:var(--y)" id="cscore"></b></p>
+      <p class="mut" id="cdate"></p>
+    </div>
+    <button onclick="location.reload()">↻ Tekrar Oyna</button>
+  </section>
+</main>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var score=0,player="Ajan";
+function addScore(n){score+=n;$("score").textContent=score}
+function setRank(r){$("rank").textContent=r}
+function step(n){["s1","s2","s3"].forEach(function(id,i){$(id).className="step"+(i+1<n?" done":i+1===n?" on":"")})}
+function show(id){["start","m1","m2","m3","end"].forEach(function(x){$(x).classList.toggle("hide",x!==id)})}
+
+$("go").onclick=function(){player=$("name").value.trim()||"Ajan";show("m1");step(1)};
+
+/* GÖREV 1 */
+var times=["Anında","1 saniye","12 dakika","6 saat","3 ay","100 yıl"];
+var labels=["-","Çok Zayıf","Zayıf","Orta","İyi","Çok Güçlü"];
+var cols=["#ff4d6d","#ff4d6d","#ff8a4d","#ffd166","#9be564","#00ff9d"];
+$("pw").addEventListener("input",function(){
+  var v=this.value;
+  var t={len:v.length>=8,up:/[A-ZÇĞİÖŞÜ]/.test(v),lo:/[a-zçğıöşü]/.test(v),num:/[0-9]/.test(v),sym:/[^A-Za-z0-9ÇĞİÖŞÜçğıöşü\s]/.test(v)};
+  var n=0;
+  document.querySelectorAll("#chk li").forEach(function(li){var ok=t[li.dataset.r];li.classList.toggle("ok",ok);if(ok)n++});
+  if(!v)n=0;
+  $("pbar").style.width=(n*20)+"%";$("pbar").style.background=cols[n];
+  $("plabel").textContent=labels[n];$("crack").textContent=times[n];
+  $("done1").disabled=n<5;
+});
+$("show").onchange=function(){$("pw").type=this.checked?"text":"password"};
+$("done1").onclick=function(){addScore(100);show("m2");step(2);loadMail()};
+
+/* GÖREV 2 */
+var mails=[
+ {from:'destek@garanti-bankasi-guvenlik.com',subj:'ACİL: Hesabınız askıya alınıcak!!',
+  body:'Sayın müşterimiz, hesabınızda şüpheli işlem tespit edildi. Hesabınız 24 saat içinde kapatılıcaktır. Bilgilerinizi güncellemek için hemen tıklayın: ',
+  link:'http://garanti-giris.xyz/dogrula',trap:true,
+  why:'Doğru! Banka adını taklit eden alan adı (.com ile uzun isim), acele ettiren dil, "askıya alınıcak" gibi yazım hataları ve .xyz uzantılı şüpheli bağlantı bunun bir oltalama (phishing) saldırısı olduğunu gösteriyor.',
+  hint:'İpucu: Gönderici adresine ve bağlantının uzantısına bak. Bankalar bu şekilde acele ettirmez!'},
+ {from:'duyuru@ataturklisesi.meb.k12.tr',subj:'Veli Toplantısı Duyurusu',
+  body:'Sevgili velilerimiz, dönem sonu veli toplantımız 20 Kasım Perşembe günü saat 18:00\'de okulumuzda yapılacaktır. Ayrıntılar için okul web sitemizi ziyaret edebilirsiniz: ',
+  link:'https://ataturklisesi.meb.k12.tr/duyurular',trap:false,
+  why:'Doğru! Gönderici adresi resmi okul alan adını (meb.k12.tr) taşıyor, dil düzgün, bağlantı okulun kendi sitesine gidiyor ve senden şifre ya da para istenmiyor.',
+  hint:'İpucu: Gönderici alan adı ve bağlantı resmi bir okul adresine benziyor mu? Yazım hatası var mı?'},
+ {from:'odul@insta-kazan-hediye.net',subj:'TEBRİKLER! iPhone kazandınız 🎁',
+  body:'Seçilen şanslı kullanıcımızsınız! Ödülünüzü almak için kargo ücreti olarak 50 TL ödeyin ve kart bilgilerinizi grin: ',
+  link:'http://bit.ly/hediye-al-123',trap:true,
+  why:'Doğru! Bilmediğin bir yerden gelen "ödül" maili, kart bilgisi isteme, "grin" gibi yazım hataları ve kısaltılmış (bit.ly) şüpheli bağlantı tipik bir dolandırıcılık işaretidir.',
+  hint:'İpucu: Hiç katılmadığın bir çekilişi nasıl kazanırsın? Üstelik senden para ve kart bilgisi isteniyor!'}
+];
+var mi=0,locked=false;
+function loadMail(){
+  var m=mails[mi];locked=false;
+  $("mn").textContent=mi+1;
+  $("mail").innerHTML='<div><b>Kimden:</b> <span style="color:var(--y)">'+m.from+'</span></div><div><b>Konu:</b> '+m.subj+'</div><div class="body">'+m.body+'<a title="Bağlantı bu oyunda devre dışı">'+m.link+'</a></div>';
+  $("mfb").innerHTML="";$("mnext").classList.add("hide");$("mbtns").classList.remove("hide");
+}
+function guess(isTrap){
+  if(locked)return;
+  var m=mails[mi];
+  if(isTrap===m.trap){
+    locked=true;addScore(100);
+    $("mfb").innerHTML='<div class="info">✔ '+m.why+' <b>+100 puan!</b></div>';
+    $("mbtns").classList.add("hide");
+    $("mnext").classList.remove("hide");
+    $("mnext").textContent=mi<2?"Sonraki ▶":"Görevi Bitir ▶";
+  }else{
+    $("mfb").innerHTML='<div class="hint">✘ Yanlış! '+m.hint+' Tekrar dene.</div>';
+  }
+}
+$("safe").onclick=function(){guess(false)};
+$("trap").onclick=function(){guess(true)};
+$("mnext").onclick=function(){
+  if(mi<2){mi++;loadMail()}else{setRank("Uzman");show("m3");step(3);initCaesar()}
+};
+
+/* GÖREV 3 */
+var A="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+function initCaesar(){
+  $("cipher").textContent="TJCFS BKBO";
+  var t1="<tr><td>Gerçek</td>",t2="<tr><td>Şifreli</td>";
+  for(var i=0;i<26;i++){t1+="<td>"+A[i]+"</td>";t2+="<td>"+A[(i+1)%26]+"</td>"}
+  $("ruler").innerHTML="<table>"+t1+"</tr>"+t2+"</tr></table>";
+}
+function norm(s){return s.toLocaleUpperCase("tr-TR").replace(/İ/g,"I").replace(/\s+/g," ").trim()}
+function check3(){
+  if(norm($("ans").value)==="SIBER AJAN"){
+    addScore(150);setRank("Ajan");finish();
+  }else{
+    $("m3fb").innerHTML='<div class="hint">✘ Henüz değil. İpucu: Şifreli harfin alfabede bir önceki harfini bul. T → S, J → ?</div>';
+  }
+}
+$("chk3").onclick=check3;
+$("ans").addEventListener("keydown",function(e){if(e.key==="Enter")check3()});
+
+/* FİNAL */
+function finish(){
+  step(4);
+  $("cname").textContent=player;$("cscore").textContent=score;
+  $("cdate").textContent=new Date().toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"});
+  show("end");confetti();
+}
+function confetti(){
+  var cv=$("cv"),x=cv.getContext("2d");
+  cv.width=innerWidth;cv.height=innerHeight;
+  var cs=["#00ff9d","#22d3ee","#ffd166","#ff4d6d","#fff"],p=[];
+  for(var i=0;i<220;i++)p.push({x:Math.random()*cv.width,y:-Math.random()*cv.height,w:6+Math.random()*6,h:8+Math.random()*8,vy:2+Math.random()*4,vx:-1.5+Math.random()*3,a:Math.random()*6,va:Math.random()*.3,c:cs[i%5]});
+  var f=0;
+  (function loop(){
+    x.clearRect(0,0,cv.width,cv.height);
+    p.forEach(function(q){q.y+=q.vy;q.x+=q.vx;q.a+=q.va;
+      x.save();x.translate(q.x,q.y);x.rotate(q.a);x.fillStyle=q.c;x.fillRect(-q.w/2,-q.h/2,q.w,q.h);x.restore();
+      if(q.y>cv.height&&f<300){q.y=-10;q.x=Math.random()*cv.width}});
+    f++;
+    if(f<420)requestAnimationFrame(loop);else x.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+</script>
+</body>
+</html>
